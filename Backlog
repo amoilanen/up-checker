@@ -1,6 +1,4 @@
 - Expose simple dummy JSON endpoint, add first unit test
-- Require authentication
-
 - Use PostgreSQL as a DB
 - Expose /groups (GET, POST)
 - Expose /groups/{group-id} (PUT, DELETE)
@@ -10,5 +8,6 @@ service is defined by name and URL, possibly also by type (database, web server,
 - Expose /groups/{group-id}/services/{service-id} (PUT, DELETE)
 - Expose /service-states/{service-id} (GET)
 
-- Deploy to AWS (EC2)?
+- Require authentication https://github.com/mohiva/play-silhouette
+- Deploy to AWS (EC2)? https://medium.com/@matayoshi.mariano/dockerize-and-deploy-to-aws-ec2-9208068fb92b
 - Use Kubernetes with AWS?
