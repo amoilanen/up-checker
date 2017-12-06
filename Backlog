@@ -1,0 +1,14 @@
+- Expose simple dummy endpoint, add first unit test
+- Require authentication
+- Development mode support
+- Build a Docker image
+- Deploy to AWS (EC2)?
+
+- Use PostgreSQL as a DB
+- Expose /groups (GET, POST)
+- Expose /groups/{group-id} (PUT, DELETE)
+group is defined by its name
+- Expose endpoint /groups/{group-id}/services (GET, POST)
+service is defined by name and URL, possibly also by type (database, web server, host)
+- Expose /groups/{group-id}/services/{service-id} (PUT, DELETE)
+- Expose /service-states/{service-id} (GET)
