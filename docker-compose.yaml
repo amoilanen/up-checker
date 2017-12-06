@@ -1,0 +1,10 @@
+postgres:
+    image: postgres:9.6.6
+    volumes:
+        - /var/lib/postgres
+    ports:
+        - 6543:5432
+    environment:
+        POSTGRES_DB: up-checker
+        POSTGRES_USER: dev
+        POSTGRES_PASSWORD: dev
