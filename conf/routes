@@ -5,6 +5,8 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
+GET     /groups                     controllers.GroupsController.list
+
 GET     /db-test                           controllers.ScalaControllerInject.index
 
 # Map static resources from the /public folder to the /assets URL path
