@@ -1,12 +1,19 @@
 - Expose simple dummy JSON endpoint, add first unit test
 - Use PostgreSQL as a DB
 - Expose /groups (GET, POST)
-- Expose /groups/{group-id} (PUT, DELETE)
+  -- Simplify Json reads and writes
+  -- Handle properly error conditions when calling dao.create
+  -- Add unit tests
+  -- Test for error conditions:
+     --- invalid JSON
+     --- Group with such a name already exists
+- Expose /groups/{group-name} (PUT, DELETE)
 group is defined by its name
-- Expose endpoint /groups/{group-id}/services (GET, POST)
+
+- Expose endpoint /groups/{group-name}/services (GET, POST)
 service is defined by name and URL, possibly also by type (database, web server, host)
 - Expose /groups/{group-id}/services/{service-id} (PUT, DELETE)
-- Expose /service-states/{service-id} (GET)
+- Expose /service-states/{service-id} (GET) (?)
 
 - Require authentication https://github.com/mohiva/play-silhouette
 - Deploy to AWS (EC2)? https://medium.com/@matayoshi.mariano/dockerize-and-deploy-to-aws-ec2-9208068fb92b
