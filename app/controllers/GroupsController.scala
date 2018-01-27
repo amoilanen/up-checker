@@ -2,9 +2,9 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api._
+import daos.GroupDao
 import play.api.mvc._
-import models.{Group, GroupRequest, GroupDao}
+import models.GroupRequest
 import models.GroupReadWrites._
 import play.api.libs.json.{JsValue, Json}
 
@@ -14,19 +14,12 @@ class GroupsController @Inject()(dao: GroupDao, cc:ControllerComponents) extends
     Ok(Json.toJson(dao.list()))
   }
 
-  def create = Action(parse.json) { request: Request[JsValue]  =>
-    val jsResult = request.body.validate[GroupRequest]
-
-    jsResult.fold(
-      invalid = {
-        fieldErrors =>
-          BadRequest
-      },
-      valid = {
-        groupRequest => {
-          dao.create(groupRequest)
-          Ok
-        }
+  def create = Action(parse.json) { request =>
+    request.body.validate[GroupRequest].fold(
+      invalid = _ => BadRequest,
+      valid = groupRequest => {
+        dao.create(groupRequest)
+        Ok
       }
     )
   }

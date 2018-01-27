@@ -13,8 +13,14 @@ group is defined by its name
 - Expose endpoint /groups/{group-name}/services (GET, POST)
 service is defined by name and URL, possibly also by type (database, web server, host)
 - Expose /groups/{group-id}/services/{service-id} (PUT, DELETE)
+
 - Expose /service-states/{service-id} (GET) (?)
+  -- When queried for service states, query the actual service state
+- Expose /group-states/{group-id}
+
+- When invalid JSON body is provided, respond with correct validation errors?
 
 - Require authentication https://github.com/mohiva/play-silhouette
+
 - Deploy to AWS (EC2)? https://medium.com/@matayoshi.mariano/dockerize-and-deploy-to-aws-ec2-9208068fb92b
 - Use Kubernetes with AWS?
