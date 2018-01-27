@@ -4,10 +4,15 @@ import javax.inject.Inject
 
 import anorm.SqlParser.{int, str}
 import anorm.{SQL, ~}
+import context.Context
 import models.{Group, GroupRequest}
 import play.api.db.Database
 
-class GroupDao @Inject()(db: Database) {
+import scala.concurrent.Future
+
+class GroupDao @Inject()(db: Database, context: Context) {
+
+  implicit val executionContext = context.dbOperations
 
   val groupParser =
     int("id") ~
@@ -15,12 +20,13 @@ class GroupDao @Inject()(db: Database) {
       case id ~ name => Group(id, name)
     }
 
-  def list(): Seq[Group] =
+  def list(): Future[Seq[Group]] = Future {
     db.withConnection(implicit connection => {
       SQL("select * from group_table").as(groupParser.*)
     })
+  }
 
-  def create(req: GroupRequest): Option[Long] = {
+  def create(req: GroupRequest): Future[Option[Long]] = Future {
     db.withConnection(implicit connection => {
       SQL("insert into group_table(name) values ({name})")
         .on('name -> req.name).executeInsert()

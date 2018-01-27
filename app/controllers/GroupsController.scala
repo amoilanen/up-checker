@@ -2,24 +2,32 @@ package controllers
 
 import javax.inject.Inject
 
+import context.Context
 import daos.GroupDao
 import play.api.mvc._
 import models.GroupRequest
 import models.GroupReadWrites._
 import play.api.libs.json.{JsValue, Json}
 
-class GroupsController @Inject()(dao: GroupDao, cc:ControllerComponents) extends AbstractController(cc)  {
+import scala.concurrent.Future
 
-  def list = Action {
-    Ok(Json.toJson(dao.list()))
+class GroupsController @Inject()(dao: GroupDao, context: Context, cc: ControllerComponents) extends AbstractController(cc)  {
+
+  implicit val executionContext = context.dbOperations
+
+  def list = Action.async {
+    dao.list().map(
+      groups => Ok(Json.toJson(groups))
+    )
   }
 
-  def create = Action(parse.json) { request =>
+  def create = Action.async(parse.json) { request =>
     request.body.validate[GroupRequest].fold(
-      invalid = _ => BadRequest,
+      invalid = _ => Future.successful(BadRequest),
       valid = groupRequest => {
-        dao.create(groupRequest)
-        Ok
+        dao.create(groupRequest).map(groupId => {
+          Ok(Json.toJson(groupId))
+        })
       }
     )
   }
