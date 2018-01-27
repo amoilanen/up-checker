@@ -22,13 +22,13 @@ class GroupDao @Inject()(db: Database, context: Context) {
 
   def list(): Future[Seq[Group]] = Future {
     db.withConnection(implicit connection => {
-      SQL("select * from group_table").as(groupParser.*)
+      SQL("select * from groups").as(groupParser.*)
     })
   }
 
   def create(groupRequest: GroupRequest): Future[Option[Long]] = Future {
     db.withConnection(implicit connection => {
-      SQL("insert into group_table(name) values ({name})")
+      SQL("insert into groups(name) values ({name})")
         .on('name -> groupRequest.name).executeInsert()
     })
   }
@@ -37,7 +37,7 @@ class GroupDao @Inject()(db: Database, context: Context) {
     db.withConnection(implicit connection => {
       val updatedRowNumber = SQL(
         """
-          | update group_table
+          | update groups
           | set name = {name}
           | where id = {id}
         """.stripMargin)
