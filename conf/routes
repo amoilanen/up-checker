@@ -7,6 +7,7 @@
 GET     /                           controllers.HomeController.index
 GET     /groups                     controllers.GroupsController.list
 POST    /groups                     controllers.GroupsController.create
+PUT     /groups/:groupId            controllers.GroupsController.update(groupId: Long)
 
 GET     /db-test                           controllers.ScalaControllerInject.index
 

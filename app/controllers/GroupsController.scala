@@ -31,4 +31,19 @@ class GroupsController @Inject()(dao: GroupDao, context: Context, cc: Controller
       }
     )
   }
+
+  def update(groupId: Long) = Action.async(parse.json) { request =>
+    request.body.validate[GroupRequest].fold(
+      invalid = _ => Future.successful(BadRequest),
+      valid = groupRequest => {
+        dao.update(groupId, groupRequest).map(updatedSuccessfully => {
+          if (updatedSuccessfully) {
+            Ok
+          } else {
+            Conflict
+          }
+        })
+      }
+    )
+  }
 }

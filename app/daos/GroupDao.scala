@@ -26,10 +26,26 @@ class GroupDao @Inject()(db: Database, context: Context) {
     })
   }
 
-  def create(req: GroupRequest): Future[Option[Long]] = Future {
+  def create(groupRequest: GroupRequest): Future[Option[Long]] = Future {
     db.withConnection(implicit connection => {
       SQL("insert into group_table(name) values ({name})")
-        .on('name -> req.name).executeInsert()
+        .on('name -> groupRequest.name).executeInsert()
+    })
+  }
+
+  def update(groupId: Long, groupRequest: GroupRequest): Future[Boolean] = Future {
+    db.withConnection(implicit connection => {
+      val updatedRowNumber = SQL(
+        """
+          | update group_table
+          | set name = {name}
+          | where id = {id}
+        """.stripMargin)
+        .on(
+          'id -> groupId,
+          'name -> groupRequest.name
+        ).executeUpdate()
+      updatedRowNumber > 0
     })
   }
 }
