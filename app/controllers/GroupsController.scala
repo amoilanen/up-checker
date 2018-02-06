@@ -16,7 +16,7 @@ class GroupsController @Inject()(dao: GroupDao, context: Context, cc: Controller
   implicit val executionContext = context.dbOperations
 
   def list = Action.async {
-    dao.list().map(
+    dao.list.map(
       groups => Ok(Json.toJson(groups))
     )
   }

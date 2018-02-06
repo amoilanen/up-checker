@@ -1,7 +1,7 @@
 - Expose simple dummy JSON endpoint, add first unit test
 - Use PostgreSQL as a DB
 - Expose /groups (GET, POST)
-  -- Simplify Json reads and writes
+  -- Simplify Json reads and writes -- error
   -- Handle properly error conditions when calling dao.create
   -- Add unit tests
   -- Test for error conditions:
@@ -24,3 +24,4 @@ service is defined by name and URL, possibly also by type (database, web server,
 
 - Deploy to AWS (EC2)? https://medium.com/@matayoshi.mariano/dockerize-and-deploy-to-aws-ec2-9208068fb92b
 - Use Kubernetes with AWS?
+- Deploy Play in production

@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
   ws,
   "org.postgresql" % "postgresql" % "42.1.4",
   "com.typesafe.play" %% "anorm" % "2.5.3",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
+  "org.mockito" % "mockito-core" % "2.10.0" % Test
 )

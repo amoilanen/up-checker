@@ -20,7 +20,7 @@ class GroupDao @Inject()(db: Database, context: Context) {
       case id ~ name => Group(id, name)
     }
 
-  def list(): Future[Seq[Group]] = Future {
+  def list: Future[Seq[Group]] = Future {
     db.withConnection(implicit connection => {
       SQL("select * from groups").as(groupParser.*)
     })
