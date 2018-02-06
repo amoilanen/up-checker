@@ -3,13 +3,6 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
 GET     /groups                     controllers.GroupsController.list
 POST    /groups                     controllers.GroupsController.create
 PUT     /groups/:groupId            controllers.GroupsController.update(groupId: Long)
-
-GET     /db-test                           controllers.ScalaControllerInject.index
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
