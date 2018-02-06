@@ -7,13 +7,11 @@ import daos.GroupDao
 import play.api.mvc._
 import models.GroupRequest
 import models.GroupReadWrites._
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class GroupsController @Inject()(dao: GroupDao, context: Context, cc: ControllerComponents) extends AbstractController(cc)  {
-
-  implicit val executionContext = context.dbOperations
+class GroupsController @Inject()(dao: GroupDao, cc: ControllerComponents)(implicit executionContext: ExecutionContext) extends AbstractController(cc)  {
 
   def list = Action.async {
     dao.list.map(
